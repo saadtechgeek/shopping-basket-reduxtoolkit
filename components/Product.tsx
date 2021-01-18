@@ -4,6 +4,8 @@ import ButtonBase from "@material-ui/core/ButtonBase"
 import Typography from "@material-ui/core/Typography"
 
 import { ProductItem } from "../global"
+import { useSelector } from "react-redux"
+import { store, add } from "../store"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -83,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Product = () => {
   const classes = useStyles({})
 
-  const products = [] // TODO
+  const products = useSelector((state: ProductItem[]) => state)
 
   return (
     <div className={classes.root}>
@@ -94,9 +96,7 @@ const Product = () => {
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           disabled={product.added}
-          onClick={() => {
-            /* Add to basket */
-          }}
+          onClick={() => store.dispatch(add(product))}
           style={{
             width: `${100 / products.length}%`
           }}
